@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792381917840,
+      "tag": "0000_create_project_enquiries",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792381958975,
+      "tag": "0001_add_enquiry_timeline_and_consent",
+      "breakpoints": true
+    }
+  ]
+}

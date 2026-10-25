@@ -1,0 +1,20 @@
+import { Link } from '@tanstack/react-router';
+import { useState } from 'react';
+import { ArrowUpRight, Menu, X, Code2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { mainNav, site } from '@/config/site';
+import { services } from '@/content/services';
+
+export function Logo() {
+  return <Link to="/" className="flex items-center gap-2.5 text-2xl font-extrabold" aria-label="WebCopps home"><span className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground"><Code2 className="size-6" /></span><span>Web<span className="text-primary">Copps</span><span className="text-primary">.</span></span></Link>;
+}
+export function Header() {
+  const [open, setOpen] = useState(false);
+  return <><a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-background focus:p-4">Skip to content</a><header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm"><div className="container-page flex h-20 items-center justify-between gap-5"><Logo /><nav className="hidden items-center gap-7 lg:flex" aria-label="Main navigation">{mainNav.map(n => <Link key={n.to} to={n.to} activeOptions={{ exact: n.to === '/' }} className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary" activeProps={{ className: 'text-primary' }}>{n.label}</Link>)}</nav><Button asChild className="hidden sm:inline-flex"><Link to="/contact">Let's Talk <ArrowUpRight /></Link></Button><Button variant="ghost" size="icon" className="lg:hidden" aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button></div>{open && <nav id="mobile-navigation" aria-label="Mobile navigation" className="container-page grid gap-1 border-t border-border py-4 lg:hidden">{mainNav.map(n => <Link key={n.to} to={n.to} className="p-3 font-semibold" onClick={() => setOpen(false)}>{n.label}</Link>)}</nav>}</header></>;
+}
+export function ProjectCTA() {
+  return <section className="bg-primary text-primary-foreground"><div className="container-page flex flex-col items-start justify-between gap-8 py-16 md:flex-row md:items-center"><div><p className="mb-3 text-sm font-semibold">GOOD WEBSITES START WITH A CONVERSATION</p><h2 className="max-w-2xl text-3xl font-bold md:text-4xl">Let’s build something that works for your business.</h2></div><Button variant="inverse" size="lg" asChild><Link to="/contact">Start Your Project <ArrowUpRight /></Link></Button></div></section>;
+}
+export function Footer() {
+  return <footer className="bg-navy text-navy-foreground"><div className="container-page grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]"><div><Logo /><p className="mt-5 max-w-xs text-sm leading-7 text-navy-muted">Thoughtful design. Reliable development. Websites built for better business.</p><p className="mt-6 text-xs text-navy-muted">Digital Design & Development Studio</p></div><div><h2 className="mb-5 font-semibold">Explore</h2><div className="grid grid-cols-2 gap-4">{mainNav.map(n => <Link key={n.to} to={n.to} className="text-sm text-navy-muted hover:text-navy-foreground">{n.label}</Link>)}</div>{site.contact.email && <a className="mt-6 block text-sm" href={`mailto:${site.contact.email}`}>{site.contact.email}</a>}</div><div><h2 className="mb-5 font-semibold">What we do</h2><div className="grid gap-3">{services.slice(0,5).map(s => <Link key={s.slug} to="/services/$slug" params={{slug:s.slug}} className="text-sm text-navy-muted hover:text-navy-foreground">{s.title}</Link>)}</div></div></div><div className="container-page flex flex-col justify-between gap-4 border-t border-navy-border py-6 text-xs text-navy-muted sm:flex-row"><p>© {new Date().getFullYear()} WebCopps. All rights reserved.</p><div className="flex flex-wrap gap-5"><Link to="/privacy-policy">Privacy Policy</Link><Link to="/terms-and-conditions">Terms & Conditions</Link><Link to="/cookie-policy">Cookie Policy</Link></div></div></footer>;
+}
