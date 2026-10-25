@@ -10,14 +10,16 @@ The website is a TanStack React application, not a WordPress theme. Service and 
 - Set an enquiry retention schedule and confirm privacy obligations and the business’s legal identity.
 - Review the production site for cookies and third-party services. No analytics or advertising scripts have been added. Google Fonts is used.
 
-## Domain and deployment
-1. Publish the reviewed site using Lovable’s Publish control.
-2. Open project Settings → Domains and connect `webcopps.com` (and `www` if needed).
-3. At your domain registrar, copy the exact DNS records Lovable provides. Do not invent IP addresses. Remove conflicting records only after checking existing email and hosting configuration.
-4. Wait for domain verification and HTTPS, choose the primary domain, and verify all page URLs.
-5. The canonical URLs and sitemap target https://webcopps.com. Development pages emit noindex. Keep any public staging hostname protected or explicitly noindexed.
-6. After launch, verify the domain in Google Search Console using its DNS record and submit https://webcopps.com/sitemap.xml.
-7. Add Google Analytics only after the owner supplies the account and tracking/consent preferences.
-8. Measure Lighthouse and real Core Web Vitals on the published domain. No score or indexing result is guaranteed.
-
-Publishing, connecting DNS, legal approval, and email notifications are not completed automatically.
+## Hostinger deployment
+1. Use a Hostinger plan that supports Node.js applications. This is a server-rendered app and cannot be deployed as static files alone.
+2. Connect the GitHub repository and deploy the `main` branch. Use `npm install`, `npm run build`, and `npm start` as the install, build, and start commands.
+3. Configure these environment variables in Hostinger. The `VITE_` values are needed at build time; the others must be available to the running server. Never commit their values:
+	- `VITE_SUPABASE_URL`
+	- `VITE_SUPABASE_PUBLISHABLE_KEY`
+	- `SUPABASE_URL`
+	- `SUPABASE_PUBLISHABLE_KEY`
+	- `SUPABASE_SERVICE_ROLE_KEY` (server-only secret)
+4. The Node server output is `.output/server/index.mjs`; configure the app to use the port supplied by Hostinger (`PORT`).
+5. Connect `webcopps.com` (and `www` if needed) in Hostinger and apply the exact DNS records it provides. Check existing email and DNS records before replacing anything.
+6. After HTTPS is active, verify all routes and enquiry submissions. The canonical URL and sitemap target https://webcopps.com; submit https://webcopps.com/sitemap.xml to Google Search Console after launch.
+7. Review legal drafts, enquiry retention, privacy obligations, and email notifications before launch. Analytics and advertising scripts are not included by default.
